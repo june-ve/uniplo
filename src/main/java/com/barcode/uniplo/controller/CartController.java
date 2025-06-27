@@ -2,6 +2,7 @@ package com.barcode.uniplo.controller;
 
 import com.barcode.uniplo.domain.UserDto;
 import com.barcode.uniplo.service.CartService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import com.barcode.uniplo.domain.CartDto;
 import jakarta.servlet.http.HttpSession;
@@ -54,7 +55,7 @@ public class CartController {
 
     // 장바구니에 추가
     @PostMapping("/add")
-    public String addCartItem(@ModelAttribute CartDto cartDto, HttpSession session) throws Exception {
+    public String addCartItem(@ModelAttribute CartDto cartDto, HttpSession session, HttpServletRequest request) throws Exception {
         UserDto authUser = (UserDto) session.getAttribute("authUser");
 
         // 로그인 안 한 경우 -> 로그인 페이지로 이동
@@ -65,7 +66,10 @@ public class CartController {
         //cartDto의 user_id에 세션의 authUser저장. 세션은 객체여서 String으로 변환 필요
         cartDto.setUser_id(authUser.getUser_id().toString());
         cartService.addToCart(cartDto);
-        return "redirect:/cart";
+
+        // 현재 페이지 URL로 리다이렉트
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
     // 장바구니 항목 삭제
@@ -77,7 +81,7 @@ public class CartController {
         cartDto.setUser_id(authUser.getUser_id().toString());
 
         cartService.deleteItem(cartDto);
-        return "cart/cartList";
+        return "redirect:/cart";
     }
 
     // 장바구니 수량 수정

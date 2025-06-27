@@ -30,7 +30,7 @@ public class CartService {
             // 2. 수량 증가로 update
             cartDao.updateCnt(cartDto);
         } else {
-            cartDto.setCart_item_cnt(1);// 수량 1로 초기 설정
+            cartDto.setCart_item_cnt(cartDto.getCart_item_cnt());// 상품페이지에서 수량 설정해서 받아옴
             cartDto.setCart_reg_date(new Date());
             cartDao.insertCart(cartDto);
         }

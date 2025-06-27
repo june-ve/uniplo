@@ -21,7 +21,5 @@
                    #{order_id}, #{item_id}, #{item_color_code}, #{item_size_code},
                    #{ored_item_name}, #{ored_item_price}, #{ored_item_cnt}
                )
-        FROM cart c
-        WHERE c.user_id = #{userId}
     </insert>
 </mapper>

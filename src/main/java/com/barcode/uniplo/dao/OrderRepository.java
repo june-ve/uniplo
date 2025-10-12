@@ -1,6 +1,5 @@
-package com.barcode.uniplo.repository;
+package com.barcode.uniplo.dao;
 
-import com.barcode.uniplo.dao.OrderDao;
 import com.barcode.uniplo.domain.OrderDto;
 import com.barcode.uniplo.domain.OrderProductDto;
 import org.apache.ibatis.session.SqlSession;
